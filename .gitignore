@@ -1,0 +1,88 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.venv*
+.idea/
+*.iml
+
+# Byte-compiled files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.out
+
+# Secrets
+*.env
+*.key
+*.crt
+shared_env/
+
+# IDE and Editor files
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Docker-related files
+docker-compose.override.yml
+.env.docker.local
+
+# Node.js (if applicable)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Flask/Sanic/other Python frameworks
+instance/
+.env.test
+
+# Coverage reports
+htmlcov/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# pytest
+.cache/
+.pytest_cache/
+.ruff_cache
+pytest.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# Specific tools
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Static files
+staticfiles/
+media/
