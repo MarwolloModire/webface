@@ -20,6 +20,8 @@ services:
       && psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "CREATE SCHEMA IF NOT EXISTS telegram;"
       && psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "CREATE SCHEMA IF NOT EXISTS app;"
       && psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "CREATE SCHEMA IF NOT EXISTS auth;"
+    networks:
+      - default
 
   backend:
     build:
@@ -36,6 +38,8 @@ services:
       - '8000:8000'
     command: >
       uvicorn src.main:app --host 0.0.0.0 --port 8000
+    networks:
+      - default
 
   order-management:
     build:
@@ -44,6 +48,8 @@ services:
       target: build
     volumes:
       - order_management_build:/app/build
+    networks:
+      - default
 
   nginx:
     image: nginx:alpine
@@ -62,7 +68,31 @@ services:
       retries: 5
       start_period: 30s
     command: ['/bin/sh', '-c', "sleep 10 && nginx -g 'daemon off;'"]
+    networks:
+      - default
+
+  bot:
+    container_name: payment_notification_bot
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - TZ=Europe/Moscow
+    env_file:
+      - ./.env
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - default
 
 volumes:
   postgres_data:
   order_management_build:
+
+networks:
+  default:
+    driver: bridge
